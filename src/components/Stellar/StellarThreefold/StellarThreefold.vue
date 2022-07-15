@@ -91,7 +91,6 @@
             return;
         }
 
-        console.log(account);
         stellarAccount.value = account;
     };
 

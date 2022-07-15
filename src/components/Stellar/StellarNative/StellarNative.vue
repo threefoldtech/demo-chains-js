@@ -45,11 +45,7 @@
             </div>
 
             <div v-if="stellarAccount" class="p-4">
-                <div>
-                    <span class="font-bold">Balance:</span> {{ stellarAccount[0].balance }} XLM ({{
-                        stellarAccount[0].asset_type
-                    }})
-                </div>
+                <div><span class="font-bold">Balance:</span> {{ stellarAccount[0].balance }} XLM</div>
             </div>
         </div>
     </div>
