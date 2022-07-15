@@ -27,7 +27,7 @@
         <div class="flex flex-col">
             <div class="mt-4 p-4">
                 <div class="flex flex-row justify-between">
-                    <div class="pb-1 text-xl font-bold">STELLAR ACCOUNT</div>
+                    <div class="pb-1 text-xl font-bold">STELLAR NATIVE ACCOUNT</div>
                     <PlusButton v-if="!stellarAccount" @click="activateAccount"></PlusButton>
                 </div>
                 <hr class="mt-2 cursor-pointer border-[0.5px] border-gray-200" />
@@ -57,11 +57,15 @@
 
 <script lang="ts" setup>
     import { ref } from 'vue';
-    import LoadingModal from '../Core/modals/LoadingModal.vue';
-    import { activateStellarAccount, getStellarAccount, getStellarKeyPairFromDerivedSeed } from './stellar.service';
+    import LoadingModal from '../../Core/modals/LoadingModal.vue';
+    import {
+        activateStellarAccount,
+        getStellarAccount,
+        getStellarKeyPairFromDerivedSeed,
+    } from './stellar.native.service';
     import { Keypair as StellarKeyPair } from 'stellar-sdk';
-    import { derivedSeed } from '../Login/login.service';
-    import PlusButton from '../Core/icons/PlusButton.vue';
+    import { derivedSeed } from '../../Login/login.service';
+    import PlusButton from '../../Core/icons/PlusButton.vue';
 
     const loadingText = 'CREATING YOUR STELLAR ACCOUNT';
 
@@ -96,7 +100,7 @@
 
     const activateAccount = async () => {
         if (!stellarPk.value) {
-            console.log('No Stellar KP available');
+            console.log('No StellarNative KP available');
             return;
         }
 
@@ -105,7 +109,7 @@
         const activated = await activateStellarAccount(stellarPk.value);
         if (!activated) {
             isBusy.value = false;
-            console.log('Could not activate Stellar Account');
+            console.log('Could not activate StellarNative Account');
         }
 
         await retrieveStellarAccount(stellarPk.value);

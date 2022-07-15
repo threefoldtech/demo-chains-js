@@ -12,7 +12,8 @@
     </div>
 
     <div class="p-4">
-        <Stellar v-if="selectedChain === ChainTypes.STELLAR"></Stellar>
+        <StellarNative v-if="selectedChain === ChainTypes.STELLAR"></StellarNative>
+        <StellarThreefold v-if="selectedChain === ChainTypes.STELLARTF"></StellarThreefold>
         <Substrate v-if="selectedChain === ChainTypes.TFCHAIN"></Substrate>
     </div>
 
@@ -42,16 +43,18 @@
 
 <script lang="ts" setup>
     import { ref } from 'vue';
-    import Stellar from '../Stellar/Stellar.vue';
+    import StellarNative from '../Stellar/StellarNative/StellarNative.vue';
     import Substrate from '../Substrate/Substrate.vue';
     import { useRouter } from 'vue-router';
 
     import { derivedSeed, username } from '../Login/login.service';
+    import StellarThreefold from '../Stellar/StellarThreefold/StellarThreefold.vue';
 
     const router = useRouter();
 
     const enum ChainTypes {
-        STELLAR = 'STELLAR',
+        STELLAR = 'STELLAR NATIVE',
+        STELLARTF = 'STELLAR TFCHAIN',
         TFCHAIN = 'TFCHAIN',
         BINANCE = 'BINANCE',
         COSMOS = 'COSMOS',

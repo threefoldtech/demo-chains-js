@@ -33,9 +33,8 @@
                 <hr class="mt-2 cursor-pointer border-[0.5px] border-gray-200" />
             </div>
 
-            <div v-if="substratePk && substrateSk" class="p-4">
+            <div v-if="substratePk" class="p-4">
                 <div><span class="font-bold">pk:</span> {{ substratePk }}</div>
-                <div><span class="font-bold">sk:</span> {{ substrateSk }}</div>
             </div>
 
             <div class="mt-4" v-if="!substrateAccount">
@@ -44,7 +43,9 @@
                 </div>
             </div>
 
-            <div v-if="substrateAccount" class="p-4">I have substrate account</div>
+            <div v-if="substrateAccount" class="p-4">
+                <div><span class="font-bold">Balance: </span> {{ substrateAccount.data.free / 1e7 }} TFT (TFChain)</div>
+            </div>
         </div>
     </div>
 </template>
@@ -53,24 +54,42 @@
     import { ref } from 'vue';
     import PlusButton from '../Core/icons/PlusButton.vue';
     import LoadingModal from '../Core/modals/LoadingModal.vue';
+    import { Keyring } from '@polkadot/api';
+    import { decodeBase64 } from 'tweetnacl-util';
+    import { derivedSeed } from '../Login/login.service';
+    import { activateTFChainAccount, getSubstrateAccount } from './substrate.service';
 
     const loadingText = 'CREATING YOUR SUBSTRATE ACCOUNT';
 
     const substrateAccount = ref();
 
     const substratePk = ref<string>();
-    const substrateSk = ref<string>();
 
     const isBusy = ref<boolean>(false);
     const loadingData = ref<boolean>(true);
 
     const init = async () => {
-        console.log('Initialization');
+        const keyring = new Keyring({ type: 'sr25519' }); // will be sr to be compatible with tooling (substrate)
+        const ring = keyring.addFromSeed(decodeBase64(derivedSeed.value));
+
+        substratePk.value = ring.address;
+
+        substrateAccount.value = await getSubstrateAccount(substratePk.value);
+
         loadingData.value = false;
     };
 
-    const activateAccount = () => {
-        console.log('Activate');
+    const activateAccount = async () => {
+        isBusy.value = true;
+        if (!substratePk.value) {
+            console.log('No Substrate PK available');
+            return;
+        }
+
+        await activateTFChainAccount(substratePk.value);
+        substrateAccount.value = await getSubstrateAccount(substratePk.value);
+
+        isBusy.value = false;
     };
 
     init();
