@@ -9,7 +9,7 @@
 ### Build for production
 ``` yarn build ```
 
-### Build docker and push to gitlab:
+### Build docker:
 
 ``` yarn build:production```
 
