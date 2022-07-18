@@ -5,7 +5,7 @@ import { Ref } from 'vue';
 console.log(import.meta.env.PROD);
 
 const threeFoldAPIHost = 'https://login.threefold.me';
-const appId = import.meta.env.PROD ? 'localhost:3000' : 'example-chains.staging.jimber.io';
+const appId = import.meta.env.PROD ? 'example-chains.staging.jimber.io' : 'localhost:3000';
 const seedPhrase =
     'upgrade math cigar submit resist grape peace better chaos jewel scrap surround bench public jazz evidence gas media slender venture harsh equal bulk gap';
 const redirectUrl = 'callback';
