@@ -6,11 +6,14 @@ import { Buffer } from 'buffer';
 import process from 'process';
 import sodium from 'libsodium-wrappers';
 import { createLoginInstance, username } from './components/Login/login.service';
+import { cryptoWaitReady } from '@polkadot/util-crypto';
 
 window.Buffer = Buffer;
 window.process = process;
 const init = async () => {
     await sodium.ready;
+
+    await cryptoWaitReady();
 
     await createLoginInstance();
 
