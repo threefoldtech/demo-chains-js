@@ -11,7 +11,9 @@ window.Buffer = Buffer;
 window.process = process;
 const init = async () => {
     await sodium.ready;
+
     await createLoginInstance();
+
     router.beforeEach(async (to, from, next) => {
         if (!username.value && to.name != 'login' && to.name != 'callback') {
             await router.push({ name: 'login' });

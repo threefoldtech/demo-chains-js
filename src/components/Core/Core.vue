@@ -49,17 +49,9 @@
 
     import { derivedSeed, username } from '../Login/login.service';
     import StellarThreefold from '../Stellar/StellarThreefold/StellarThreefold.vue';
+    import { ChainTypes } from './services/core.service';
 
     const router = useRouter();
-
-    const enum ChainTypes {
-        STELLAR = 'STELLAR NATIVE',
-        STELLARTF = 'STELLAR TFCHAIN',
-        TFCHAIN = 'TFCHAIN',
-        BINANCE = 'BINANCE',
-        COSMOS = 'COSMOS',
-        ALGORAND = 'ALGORAND',
-    }
 
     const authenticateUser = async () => {
         await router.push({ name: 'login' });
