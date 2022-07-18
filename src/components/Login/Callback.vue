@@ -8,8 +8,6 @@
     const init = async () => {
         const redirectUrl = new URL(window.location.href);
 
-        console.log(login);
-
         const profileData = await login.parseAndValidateRedirectUrl(redirectUrl, state.value);
 
         const user = profileData.profile.doubleName;
@@ -23,4 +21,3 @@
 
     init();
 </script>
-<!--snP3ssGkDkYiI1UJVgM77xxG13tGvmC2-->

@@ -20,6 +20,7 @@ const init = async () => {
         }
         next();
     });
+
     createApp(App).use(router).mount('#app');
 };
 init();

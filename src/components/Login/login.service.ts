@@ -3,7 +3,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { Ref } from 'vue';
 
 const threeFoldAPIHost = 'https://login.threefold.me';
-const appId = 'localhost:3000';
+const appId = window.location.hostname + import.meta.env.DEV ? ':3000' : '';
 const seedPhrase =
     'upgrade math cigar submit resist grape peace better chaos jewel scrap surround bench public jazz evidence gas media slender venture harsh equal bulk gap';
 const redirectUrl = 'callback';
