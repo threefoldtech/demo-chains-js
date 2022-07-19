@@ -1,5 +1,16 @@
 # Example key derivation for different chains
 
+## Chains
+
+This example will demonstrate account creation + showing balance for following chains:
+
+- [x] Stellar Native
+- [x] Stellar TFChain
+- [x] TFChain (Substrate)
+- [ ] Binance Smart Chain
+- [ ] Cosmos (ThreeFold?)
+- [ ] Algorand 
+
 **Stack: Vite + Typescript + Vue**
 
 ### Development
