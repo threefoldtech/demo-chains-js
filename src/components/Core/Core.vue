@@ -15,6 +15,7 @@
         <StellarNative v-if="selectedChain === ChainTypes.STELLAR"></StellarNative>
         <StellarThreefold v-if="selectedChain === ChainTypes.STELLARTF"></StellarThreefold>
         <Substrate v-if="selectedChain === ChainTypes.TFCHAIN"></Substrate>
+        <Algorand v-if="selectedChain === ChainTypes.ALGORAND"></Algorand>
     </div>
 
     <div v-if="!username || !derivedSeed" class="absolute top-8 right-8 cursor-pointer">
@@ -50,6 +51,7 @@
     import { derivedSeed, username } from '../Login/login.service';
     import StellarThreefold from '../Stellar/StellarThreefold/StellarThreefold.vue';
     import { ChainTypes } from './services/core.service';
+    import Algorand from '../Algorand/Algorand.vue';
 
     const router = useRouter();
 

@@ -27,24 +27,35 @@
         <div class="flex flex-col">
             <div class="mt-4 p-4">
                 <div class="flex flex-row justify-between">
-                    <div class="pb-1 text-xl font-bold">TFCHAIN ACCOUNT</div>
-                    <PlusButton v-if="!substrateAccount" @click="activateAccount"></PlusButton>
+                    <div class="pb-1 text-xl font-bold">ALGORAND ACCOUNT</div>
+                    <PlusButton v-if="!algorandAccount" @click="activateAccount"></PlusButton>
                 </div>
                 <hr class="mt-2 cursor-pointer border-[0.5px] border-gray-200" />
             </div>
 
-            <div v-if="substratePk" class="p-4">
-                <div><span class="font-bold">address:</span> {{ substratePk }}</div>
+            <div v-if="algorandPk" class="p-4">
+                <div><span class="font-bold">address:</span> {{ algorandPk }}</div>
             </div>
 
-            <div class="mt-4" v-if="!substrateAccount">
-                <div class="text-center text-sm text-gray-400">
-                    No TF Chain account found with this seed, please create your Substrate Account using the button.
+            <div v-if="algorandSk" class="p-4">
+                <div><span class="font-bold">sk:</span> {{ algorandSk }}</div>
+            </div>
+
+            <div class="p-4">
+                Please fund your Algorand account using the testnet dispenser at:
+                <a
+                    target="_blank"
+                    class="text-blue-500 underline"
+                    :href="`https://dispenser.testnet.aws.algodev.network/?account=${algorandPk}`"
+                    >{{ `https://dispenser.testnet.aws.algodev.network/?account=${algorandPk}` }}</a
+                >
+            </div>
+
+            <div class="p-4">
+                <div>
+                    <span class="font-bold">Balance: </span> {{ balance ? balance : 0 }} microAlgos ( =
+                    {{ balance ? balance / 1000000 : 0 }} algos)
                 </div>
-            </div>
-
-            <div v-if="substrateAccount" class="p-4">
-                <div><span class="font-bold">Balance: </span> {{ substrateAccount.data.free / 1e7 }} TFT (TFChain)</div>
             </div>
         </div>
     </div>
@@ -54,41 +65,31 @@
     import { ref } from 'vue';
     import PlusButton from '../Core/icons/PlusButton.vue';
     import LoadingModal from '../Core/modals/LoadingModal.vue';
-    import { Keyring } from '@polkadot/api';
+    import { Account, mnemonicFromSeed, mnemonicToSecretKey } from 'algosdk';
     import { derivedSeed } from '../Login/login.service';
-    import { activateTFChainAccount, getSubstrateAccount } from './substrate.service';
+    import { getAlgorandBalance } from './algorand.service';
     import { base64 } from '../Core/crypto/crypto.service';
 
-    const loadingText = 'CREATING YOUR SUBSTRATE ACCOUNT';
+    const loadingText = 'CREATING YOUR ALGORAND ACCOUNT';
 
-    const substrateAccount = ref();
+    const algorandAccount = ref();
 
-    const substratePk = ref<string>();
+    const algorandPk = ref<string>();
+    const algorandSk = ref<string>();
 
     const isBusy = ref<boolean>(false);
     const loadingData = ref<boolean>(true);
 
+    const balance = ref<number | null>();
+
     const init = async () => {
-        const keyring = new Keyring({ type: 'sr25519' }); // will be sr to be compatible with tooling (substrate)
-        const ring = keyring.addFromSeed(base64.decode(derivedSeed.value));
+        const kp: Account = mnemonicToSecretKey(mnemonicFromSeed(base64.decode(derivedSeed.value)));
 
-        substratePk.value = ring.address;
+        algorandPk.value = kp.addr;
+        algorandSk.value = base64.encode(kp.sk);
 
-        substrateAccount.value = await getSubstrateAccount(substratePk.value);
+        balance.value = await getAlgorandBalance(algorandPk.value);
         loadingData.value = false;
-    };
-
-    const activateAccount = async () => {
-        isBusy.value = true;
-        if (!substratePk.value) {
-            console.log('No Substrate PK available');
-            return;
-        }
-
-        await activateTFChainAccount(substratePk.value);
-        substrateAccount.value = await getSubstrateAccount(substratePk.value);
-
-        isBusy.value = false;
     };
 
     init();

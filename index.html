@@ -7,10 +7,15 @@
     <title>Chain example</title>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module">
-        window.global = window
-    </script>
-   <script type="module" src="./src/main.ts"></script>
+  <div id="app"></div>
+  <script type="module" src="./src/main.ts"></script>
+  <script>window.global = window;</script>
+  <script type="module">
+      import process from "process";
+      import { Buffer } from "buffer";
+
+      window.Buffer = Buffer;
+      window.process = process;
+  </script>
   </body>
 </html>
