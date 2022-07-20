@@ -62,7 +62,7 @@ jobs:
                   password: ${{ secrets.GITHUB_TOKEN }}
             - uses: actions/checkout@v2
             - name: Pull Image
-              run: docker pull env.FRONTEND_IMAGE
+              run: docker pull ${{ env.FRONTEND_IMAGE }}
             - name: Run
               run: docker rm -f chains-example || true
             - name: Run
