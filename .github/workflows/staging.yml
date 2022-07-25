@@ -61,7 +61,9 @@ jobs:
                   username: ${{ github.actor }}
                   password: ${{ secrets.GITHUB_TOKEN }}
             - uses: actions/checkout@v2
+            - name: Pull Image
+              run: docker pull ${{ env.FRONTEND_IMAGE }}
             - name: Run
               run: docker rm -f chains-example || true
             - name: Run
-              run: docker run -d --name "chains-example" --network proxy registry.gitlab.com/jimber/example-chaining:latest
+              run: docker run -d --name "chains-example" --network proxy ${{ env.FRONTEND_IMAGE }}

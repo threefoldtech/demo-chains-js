@@ -34,7 +34,7 @@
             </div>
 
             <div v-if="stellarTFKeyPair" class="p-4">
-                <div><span class="font-bold">pk:</span> {{ stellarTFKeyPair.publicKey() }}</div>
+                <div><span class="font-bold">address:</span> {{ stellarTFKeyPair.publicKey() }}</div>
                 <div><span class="font-bold">sk:</span> {{ stellarTFKeyPair.secret() }}</div>
             </div>
 

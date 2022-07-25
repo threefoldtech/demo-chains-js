@@ -34,7 +34,7 @@
             </div>
 
             <div v-if="stellarPk && stellarSk" class="p-4">
-                <div><span class="font-bold">pk:</span> {{ stellarPk }}</div>
+                <div><span class="font-bold">address:</span> {{ stellarPk }}</div>
                 <div><span class="font-bold">sk:</span> {{ stellarSk }}</div>
             </div>
 
@@ -62,6 +62,7 @@
     import { Keypair as StellarKeyPair } from 'stellar-sdk';
     import { derivedSeed } from '../../Login/login.service';
     import PlusButton from '../../Core/icons/PlusButton.vue';
+    import { base64 } from '../../Core/crypto/crypto.service';
 
     const loadingText = 'CREATING YOUR STELLAR ACCOUNT';
 

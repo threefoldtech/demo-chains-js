@@ -2,10 +2,8 @@ import { generateRandomString, ThreefoldLogin } from '@threefoldjimber/threefold
 import { useLocalStorage } from '@vueuse/core';
 import { Ref } from 'vue';
 
-console.log(import.meta.env.PROD);
-
 const threeFoldAPIHost = 'https://login.threefold.me';
-const appId = import.meta.env.PROD ? 'example-chains.staging.jimber.io' : 'localhost:3000';
+const appId = 'example-chains.staging.jimber.io';
 const seedPhrase =
     'upgrade math cigar submit resist grape peace better chaos jewel scrap surround bench public jazz evidence gas media slender venture harsh equal bulk gap';
 const redirectUrl = 'callback';
