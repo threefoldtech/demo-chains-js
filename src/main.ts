@@ -14,9 +14,9 @@ const init = async () => {
     await createLoginInstance();
 
     router.beforeEach(async (to, from, next) => {
-        if (!username.value && to.name != 'login' && to.name != 'callback') {
-            await router.push({ name: 'login' });
-        }
+        // if (!username.value && to.name != 'login' && to.name != 'callback') {
+        //     await router.push({ name: 'login' });
+        // }
         next();
     });
 
