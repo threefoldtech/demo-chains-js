@@ -6,8 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-
-const webpack = require('webpack');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -21,15 +20,7 @@ module.exports = {
     stats: {
         errorDetails: true,
     },
-    experiments: {
-        topLevelAwait: true,
-    },
     devServer: {
-        proxy: {
-            '/api': {
-                target: 'http://localhost:5000',
-            },
-        },
         static: {
             directory: path.join(__dirname, 'public'),
         },
@@ -55,9 +46,7 @@ module.exports = {
             filename: './index.css',
         }),
         new VueLoaderPlugin(),
-        new webpack.ProvidePlugin({
-            Buffer: ['buffer', 'Buffer'],
-        }),
+        new NodePolyfillPlugin(),
     ],
     module: {
         rules: [
@@ -121,6 +110,7 @@ module.exports = {
             url: require.resolve('url'),
             https: require.resolve('https-browserify'),
             http: require.resolve('stream-http'),
+            assert: require.resolve('assert'),
         },
         plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
     },

@@ -5,10 +5,7 @@ import router from './router';
 import sodium from 'libsodium-wrappers';
 import { createLoginInstance, username } from './components/Login/login.service';
 import { cryptoWaitReady } from '@polkadot/util-crypto';
-import process from 'process';
 
-// window.Buffer = Buffer;
-window.process = process;
 const init = async () => {
     await sodium.ready;
 

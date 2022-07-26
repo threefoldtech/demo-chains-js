@@ -27,66 +27,60 @@
         <div class="flex flex-col">
             <div class="mt-4 p-4">
                 <div class="flex flex-row justify-between">
-                    <div class="pb-1 text-xl font-bold">ALGORAND ACCOUNT</div>
+                    <div class="pb-1 text-xl font-bold">BINANCE ACCOUNT</div>
                 </div>
                 <hr class="mt-2 cursor-pointer border-[0.5px] border-gray-200" />
             </div>
 
-            <div v-if="algorandPk" class="p-4">
-                <div><span class="font-bold">address:</span> {{ algorandPk }}</div>
+            <div v-if="binancePk" class="p-4">
+                <div><span class="font-bold">address:</span> {{ binancePk }}</div>
             </div>
 
-            <div v-if="algorandSk" class="p-4">
-                <div><span class="font-bold">sk:</span> {{ algorandSk }}</div>
+            <div v-if="binanceSk" class="p-4">
+                <div><span class="font-bold">sk:</span> {{ binanceSk }}</div>
             </div>
 
             <div class="p-4">
-                Please fund your Algorand account using the testnet dispenser at:
-                <a
-                    target="_blank"
-                    class="text-blue-500 underline"
-                    :href="`https://dispenser.testnet.aws.algodev.network/?account=${algorandPk}`"
-                    >{{ `https://dispenser.testnet.aws.algodev.network/?account=${algorandPk}` }}</a
+                Please fund your Binance account using the testnet dispenser at:
+                <a target="_blank" class="text-blue-500 underline" href="https://testnet.binance.org/faucet-smart"
+                    >https://testnet.binance.org/faucet-smart</a
                 >
             </div>
 
             <div class="p-4">
-                <div>
-                    <span class="font-bold">Balance: </span> {{ balance ? balance : 0 }} microAlgos ( =
-                    {{ balance ? balance / 1000000 : 0 }} algos)
-                </div>
+                <div><span class="font-bold">Balance: </span> {{ balance ? balance : 0 }} BNB</div>
             </div>
         </div>
     </div>
 </template>
-
 <script lang="ts" setup>
-    import { ref } from 'vue';
     import LoadingModal from '../Core/modals/LoadingModal.vue';
-    import { Account, mnemonicFromSeed, mnemonicToSecretKey } from 'algosdk';
+    import Web3 from 'web3';
     import { derivedSeed } from '../Login/login.service';
-    import { getAlgorandBalance } from './algorand.service';
-    import { base64 } from '../Core/crypto/crypto.service';
+    import { ref } from 'vue';
 
-    const loadingText = 'CREATING YOUR ALGORAND ACCOUNT';
+    const loadingText = 'CREATING YOUR BINANCE ACCOUNT';
 
-    const algorandAccount = ref();
+    const binanceAccount = ref();
 
-    const algorandPk = ref<string>();
-    const algorandSk = ref<string>();
+    const binancePk = ref<string>();
+    const binanceSk = ref<string>();
 
     const isBusy = ref<boolean>(false);
     const loadingData = ref<boolean>(true);
 
-    const balance = ref<number | null>();
+    const balance = ref<string | null>();
+
+    let web3 = new Web3(new Web3.providers.HttpProvider('https://data-seed-prebsc-1-s1.binance.org:8545/'));
 
     const init = async () => {
-        const kp: Account = mnemonicToSecretKey(mnemonicFromSeed(base64.decode(derivedSeed.value)));
+        binanceAccount.value = web3.eth.accounts.privateKeyToAccount(derivedSeed.value, true);
 
-        algorandPk.value = kp.addr;
-        algorandSk.value = base64.encode(kp.sk);
+        binancePk.value = binanceAccount.value.address;
+        binanceSk.value = binanceAccount.value.privateKey;
 
-        balance.value = await getAlgorandBalance(algorandPk.value);
+        balance.value = web3.utils.fromWei(await web3.eth.getBalance(binanceAccount.value.address));
+
         loadingData.value = false;
     };
 

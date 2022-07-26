@@ -9,7 +9,7 @@ This example will demonstrate account creation + showing balance for following c
 - [x] TFChain (Substrate)
 - [ ] Binance Smart Chain
 - [ ] Cosmos (ThreeFold?)
-- [ ] Algorand 
+- [x] Algorand 
 
 **Stack: Vite + Typescript + Vue**
 

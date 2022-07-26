@@ -5,5 +5,8 @@ export const hexToBytes = (hexString: string): Uint8Array => {
 
 export const base64 = {
     decode: (s: any) => Uint8Array.from(atob(s), c => c.charCodeAt(0)),
-    encode: (b: any) => btoa(String.fromCharCode(...new Uint8Array(b))),
+    encode: (b: any) => {
+        //@ts-ignore
+        return btoa(String.fromCharCode(...new Uint8Array(b)));
+    },
 };
