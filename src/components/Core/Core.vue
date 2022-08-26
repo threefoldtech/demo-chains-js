@@ -39,7 +39,7 @@
 
     <div v-else class="absolute bottom-8 left-8">
         <div><span class="font-bold">Username: </span> {{ username }}</div>
-        <div><span class="font-bold">derivedSeed: </span> {{ derivedSeed }}</div>
+        <!--        <div><span class="font-bold">derivedSeed: </span> {{ derivedSeed }}</div>-->
     </div>
 </template>
 
