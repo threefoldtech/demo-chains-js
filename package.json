@@ -8,7 +8,12 @@
     "build:production": "docker build -t registry.gitlab.com/jimber/example-chaining ."
   },
   "dependencies": {
+    "@cosmjs/cosmwasm-stargate": "^0.28.11",
+    "@cosmjs/launchpad": "^0.27.1",
+    "@cosmjs/proto-signing": "^0.28.11",
+    "@cosmjs/stargate": "^0.28.11",
     "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
+    "@esbuild-plugins/node-modules-polyfill": "^0.1.4",
     "@heroicons/vue": "^1.0.6",
     "@jimber/simple-bip39": "^1.0.0",
     "@polkadot/api": "^8.14.1",
@@ -38,18 +43,19 @@
     "stream": "^0.0.2",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
+    "tailwindcss": "^3.1.6",
     "util": "^0.12.4",
     "uuid": "^8.3.2",
     "vue": "^3.2.25",
     "vue-router": "^4.1.1",
-    "web3": "1.7.4",
-    "tailwindcss": "^3.1.6"
+    "web3": "1.7.4"
   },
   "devDependencies": {
     "@babel/core": "7.17.7",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
+    "@cosmjs/cli": "^0.28.11",
     "@types/jest": "27.4.1",
     "@types/libsodium-wrappers": "^0.7.9",
     "@types/lodash": "4.14.180",

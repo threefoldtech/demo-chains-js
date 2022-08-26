@@ -16,6 +16,7 @@
         <StellarThreefold v-if="selectedChain === ChainTypes.STELLARTF"></StellarThreefold>
         <Substrate v-if="selectedChain === ChainTypes.TFCHAIN"></Substrate>
         <Binance v-if="selectedChain === ChainTypes.BINANCE"></Binance>
+        <Cosmos v-if="selectedChain === ChainTypes.COSMOS"></Cosmos>
         <Algorand v-if="selectedChain === ChainTypes.ALGORAND"></Algorand>
     </div>
 
@@ -54,6 +55,7 @@
     import { ChainTypes } from './services/core.service';
     import Algorand from '../Algorand/Algorand.vue';
     import Binance from '../Binance/Binance.vue';
+    import Cosmos from '../Cosmos/Cosmos.vue';
 
     const router = useRouter();
 
