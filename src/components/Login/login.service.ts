@@ -1,6 +1,6 @@
 import { generateRandomString, ThreefoldLogin } from '@threefoldjimber/threefold_login';
 import { useLocalStorage } from '@vueuse/core';
-import { Ref } from 'vue';
+import { ref, Ref } from 'vue';
 
 const threeFoldAPIHost = 'https://login.threefold.me';
 const appId = 'example-chains.staging.jimber.io';
@@ -12,7 +12,7 @@ export let state: Ref<string> = useLocalStorage('state', '');
 export let login: ThreefoldLogin;
 
 export let username: Ref<string> = useLocalStorage('username', '');
-export let derivedSeed: Ref<string> = useLocalStorage('derivedSeed', '');
+export let derivedSeed = ref<string>('');
 
 export const generateLoginUrl = async () => {
     state.value = generateRandomString();
