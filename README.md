@@ -1,5 +1,7 @@
 # Example key derivation for different chains
 
+This is a POC that gives a web interface where you login with TF Connect and it'll automatically create wallets on different chains for you.
+
 ## Chains
 
 This example will demonstrate account creation + showing balance for following chains:
